@@ -72,4 +72,25 @@ public class EmployeeController {
 	{
 		return erepo.findByEname(ename);
 	}
+	// updating all fields:
+	@PutMapping("/upd/{eid}")
+	public Employee update(@PathVariable int eid,@RequestBody Employee employee)
+	{
+		Employee e=erepo.findById(eid).get();
+		e.setAddress(employee.getAddress());
+		e.setEage(employee.getEage());
+		e.setEname(employee.getEname());
+		return erepo.save(e);
+	}
+	// partial update of fields:
+	@PatchMapping("/update/{eid}")
+	public Employee upd(@RequestBody Employee emp,@PathVariable int eid)
+	{
+		Employee e=erepo.findById(eid).get();
+		//e.setEid(emp.getEid());
+		e.setEage(emp.getEage());
+		e.address.setAcity(emp.getAddress().getAcity());
+		e.address.setAstreet(emp.getAddress().getAstreet());
+		return erepo.save(e);
+	}
 }
